@@ -1,6 +1,6 @@
-# SPDX-FileCopyrightText: 2026 Filipe Casimiro Ferreira <filipe.casimiro@edu.hefr.ch>
+# SPDX-FileCopyrightText: 2026 Filipe Casimiro Ferreira <pro.maiscommentz@gmail.com>
 #
-# SPDX-License-Identifier: Apache-2.0 OR MIT
+# SPDX-License-Identifier: MIT
 
 """
 EBNF Compiler
