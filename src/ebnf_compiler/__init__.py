@@ -14,7 +14,10 @@ from typing import Annotated
 import typer
 from loguru import logger
 from rich.console import Console
+from rich.panel import Panel
+from rich.pretty import Pretty
 
+from . import ast
 from .parser import Parser
 from .scanner import Scanner
 
@@ -27,18 +30,20 @@ class Compiler:
     scanner: Scanner
     parser: Parser
 
-    def compile(self) -> None:
+    def ast(self) -> ast.Syntax | None:
         try:
-            self.parser.parse()
+            return self.parser.parse()
         except Exception as e:
             print(f"{e}")
-
+            return None
+        
 
 @app.command(context_settings={"ignore_unknown_options": True})
 def main(
     source: Annotated[Path, typer.Argument()],
     debug: bool = False,
-) -> None:
+    show_tree: bool = False,
+):
 
     logger.remove()
     if debug:
@@ -51,7 +56,15 @@ def main(
     parser = Parser(scanner=scanner)
 
     compiler = Compiler(scanner=scanner, parser=parser)
-    compiler.compile()
+    ast_ = compiler.ast()
+
+    if ast_ is None:
+        console.print("[red]Compilation failed[/red]")
+        return
+    elif show_tree:
+        console.print(Panel(Pretty(ast_, indent_size=2), title="Syntax Tree"))
+    else:
+        console.print(Panel(ast_.rich(), title="Code"))
 
 
 if __name__ == "__main__":
