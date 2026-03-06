@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD
 
 on:
   push:
@@ -84,7 +84,7 @@ jobs:
 
   release:
     name: Publish GitHub Release
-    needs: [validate, test]
+    needs: [validate, test, docs]
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     permissions:
