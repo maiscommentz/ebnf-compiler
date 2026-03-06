@@ -114,7 +114,7 @@ The repository relies on a complete **GitHub Actions** pipeline configured in `.
 
 ## 📄 License
 
-This project complies with the [REUSE](https://reuse.software/) specification. 
+This project complies with the [REUSE](https://reuse.software/) specification.
 The source code is licensed under the **MIT License**. See the `LICENSES/MIT.txt` file for more details.
 
 © 2026 Filipe Casimiro Ferreira <pro.maiscommentz@gmail.com>

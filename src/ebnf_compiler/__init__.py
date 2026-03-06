@@ -36,13 +36,13 @@ class Compiler:
         except Exception as e:
             print(f"{e}")
             return None
-        
+
 
 @app.command(context_settings={"ignore_unknown_options": True})
 def main(
     source: Annotated[Path, typer.Argument()],
     debug: bool = False,
-    show_tree: bool = False,
+    show_tree: bool = True,
 ):
 
     logger.remove()
@@ -61,10 +61,11 @@ def main(
     if ast_ is None:
         console.print("[red]Compilation failed[/red]")
         return
-    elif show_tree:
+
+    console.print(Panel(ast_.rich(), title="Code"))
+
+    if show_tree:
         console.print(Panel(Pretty(ast_, indent_size=2), title="Syntax Tree"))
-    else:
-        console.print(Panel(ast_.rich(), title="Code"))
 
 
 if __name__ == "__main__":
