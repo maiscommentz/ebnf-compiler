@@ -50,7 +50,7 @@ class Expression(Factor):
     paren: bool = False
 
     def rich(self) -> str:
-        return " ".join(t.rich() for t in self.terms)
+        return " | ".join(t.rich() for t in self.terms)
 
 
 @dataclass
@@ -66,7 +66,7 @@ class Repetition(Factor):
     expr: Expression
 
     def rich(self) -> str:
-        return f"[cyan][[/cyan]{self.expr.rich()}[cyan]][/cyan]"
+        return "[cyan]{[/cyan]%s[cyan]}[/cyan]" % self.expr.rich()
 
 
 @dataclass

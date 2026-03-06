@@ -3,3 +3,4 @@ number = digit { digit } .
 string = "'" { char } "'" .
 char = "a" | "b" | "c" | "0" | "1" | "2" | "3" .
 digit = "0" | "1" | "2" | "3" .
+test = ["a"] {"b"} ["c"] .
