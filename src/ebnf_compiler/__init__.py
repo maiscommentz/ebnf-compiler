@@ -18,6 +18,7 @@ from rich.panel import Panel
 from rich.pretty import Pretty
 
 from . import ast
+from .analyzer import Analyzer
 from .parser import Parser
 from .scanner import Scanner
 
@@ -43,6 +44,7 @@ def main(
     source: Annotated[Path, typer.Argument()],
     debug: bool = False,
     show_tree: bool = True,
+    analyze: bool = True,
 ):
 
     logger.remove()
@@ -66,6 +68,18 @@ def main(
 
     if show_tree:
         console.print(Panel(Pretty(ast_, indent_size=2), title="Syntax Tree"))
+
+    if analyze:
+        analyzer = Analyzer(ast_)
+        analyzer.analyze()
+
+        console.print("\n[bold]Terminal Symbols[/bold]")
+        for sym in analyzer.terminals:
+            console.print(f"- {sym}")
+
+        console.print("\n[bold]Non-terminal Symbols[/bold]")
+        for sym in analyzer.non_terminals:
+            console.print(f"- {sym}")
 
 
 if __name__ == "__main__":
